@@ -1,5 +1,6 @@
 import { useSelector , useDispatch } from "react-redux"
 import SongItem from "../../components/SongItem"
+import SongItems from "../../components/SongItems"
 
 
 
@@ -14,7 +15,11 @@ const Song = () => {
             <div className="av-songs">
                 {songs.map((song)=> {
                     return (
-                        <SongItem key={song.id} {...song}/>
+                        <div className="songsforgrid">
+                        {/* <SongItem key={song.id} {...song}/> */}
+                        <SongItems key={song.id} {...song}/>
+                    
+                        </div>
                     )
                 })}
 
