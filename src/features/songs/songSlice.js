@@ -3,7 +3,7 @@ import songItems from "../../songItems";
 import {current} from '@reduxjs/toolkit'
 
 const initialState = {
-    songs:songItems,
+    songs:[],
     isLoading: false,
     quantity:songItems.length,
     editSong:[]
@@ -39,17 +39,25 @@ const songSlice = createSlice({
            console.log(result)
            const indexOf = current(state).songs.indexOf(result[0])
            state.songs[indexOf] = action.payload
-        //    current(state).songs.forEach((s)=> {
-        //        if(s.id === idForEdit){
-        //            s.artist = action.payload.artist
-        //            s.title = action.payload.title
-        //            s.img = action.payload.img
-                   
-        //        } 
-        //    })
-        
+      
         
        
+        },
+        // this is for saga and async part of the code 
+        getFetchedSong: (state) => {
+            state.isLoading = true
+            
+        },
+        getFetchedSuccessSong: (state , action) => {
+           
+            state.songs = action.payload
+            
+            state.isLoading = false 
+           
+
+        },
+        getFetchedSongFailure: (state, action) => {
+            state.isLoading = false
         }
 
         
@@ -62,5 +70,5 @@ const songSlice = createSlice({
 
 
 
-export const {getSongs , addSongs , removeSong , getSong , editSong} = songSlice.actions
+export const {getSongs , addSongs , removeSong , getSong , editSong , getFetchedSong , getFetchedSuccessSong , getFetchedSongFailure} = songSlice.actions
 export default songSlice.reducer

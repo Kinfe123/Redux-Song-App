@@ -209,6 +209,11 @@ form button {
   color: var(--clr-primary);
   background: var(--clr-primary-light);
 }
+.loader {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /*
 =============== 

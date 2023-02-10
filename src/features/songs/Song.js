@@ -1,17 +1,35 @@
 import { useSelector , useDispatch } from "react-redux"
 import SongItem from "../../components/SongItem"
 import SongItems from "../../components/SongItems"
+import { useEffect } from "react"
+import { getFetchedSong } from "./songSlice"
+import HashLoader from "react-spinners/HashLoader"
 
 
 
 const Song = () => {
 
-    const {songs} = useSelector(state => state.song)
+    const dispatch = useDispatch()
+    // const isLoading = useSelector(state => state.song.isLoading);
 
+
+  
+
+
+    useEffect(()=> {
+        dispatch(getFetchedSong())
+
+    } , [])
+
+    const {songs , isLoading} = useSelector(state => state.song)
+  
+     
     return (
         <div className="songs">
             <h1>List of Available Songs.</h1>
-
+            <div className='loader'>
+            {isLoading && (<HashLoader color="#7d50ce" />)}
+            </div>
             <div className="av-songs">
                 {songs.map((song)=> {
                     return (

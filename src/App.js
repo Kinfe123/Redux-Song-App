@@ -8,15 +8,26 @@ import './App.css';
 import Navbar from './components/Navbar';
 import CreateSong from './pages/CreateSong';
 import EditSong from './pages/EditSongs';
+import createSagaMiddleware from '@redux-saga/core';
+import { HashLoader } from 'react-spinners';
+import { useSelector } from 'react-redux';
+
+
+
 function App() {
+
+ 
+  
 
   
   return (
     <div className="App">
-       
+      
 
      <BrowserRouter>
      <Navbar />
+
+     
       <Routes>
         <Route path="/" element={<Song />} />
         {/* <Route path='/*' element={<NotFound />}/> */}
