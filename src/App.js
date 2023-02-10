@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Counter } from './features/songs/Counter';
+
 import { BrowserRouter , Route , Router , Routes } from 'react-router-dom';
 
 import Song from './features/songs/Song';
