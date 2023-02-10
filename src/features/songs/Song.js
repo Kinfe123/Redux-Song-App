@@ -19,7 +19,7 @@ const Song = () => {
     useEffect(()=> {
         dispatch(getFetchedSong())
 
-    } , [])
+    } , [dispatch])
 
     const {songs , isLoading} = useSelector(state => state.song)
   

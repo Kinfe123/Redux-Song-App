@@ -1,51 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:ital,wght@0,400;0,600;0,700;1,600&family=Prompt:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-   }
-    100% {
-        transform: rotate(360deg);
-   }
-}
 body {
-    background: #fafafa;
-    font-family: 'Montserrat', sans-serif;
-    font-family: 'Poppins', sans-serif;
-    font-family: 'Prompt', sans-serif;
-        
-    
-}
-.music-card {
-    margin: 30px auto;
-    border-radius: 6px;
-    font-family: 'Montserrat', sans-serif;
-    font-family: 'Poppins', sans-serif;
-    font-family: 'Prompt', sans-serif;
+    background: #8e9eab;
+    background: linear-gradient(to left, #8e9eab , #eef2f3);
+  }
+  
+  
+  @keyframes wave {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .music-card {
+    margin: 40px auto;
     background: #fff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 9px 7px 37px -6px rgba(0,0,0,0.75);
     overflow: hidden;
     position: relative;
     width: 300px;
     height: 500px;
-}
-.music-card > .image img {
+    border-radius: 10px;
+  }
+  
+  .image {
+    background: url('http://goo.gl/Ztc4c1') no-repeat 75%;
+    background-size: cover;  
     position: absolute;
     z-index: 1;
     opacity: 0.3;
     height: 300px;
     width: 300px;
-}
-.music-card > .image:after {
+  }
+  
+  .image:after {
     height: 100px;
     content: '';
     top: 200px;
     position: absolute;
     width: 100%;
     z-index: 1;
-    background: linear-gradient(rgba(221, 65, 127, 0), #dd417f);
-}
-.music-card > .wave {
+    background: linear-gradient(rgba(9, 2, 4, 0), #444);
+  }
+  
+  .wave {
     position: absolute;
     height: 750px;
     width: 750px;
@@ -54,37 +49,74 @@ body {
     top: 0;
     margin-left: -70%;
     margin-top: -130%;
+    background: radial-gradient(#301212, #5e3333);
+  }
+  
+  .wave:nth-child(2),
+  .wave:nth-child(3) {
+    top: 10px;
+  }
+  
+  .playing .wave {
     border-radius: 40%;
-    background: radial-gradient(#b01de8, #f34235);
-    animation: spin 3000ms infinite linear;
-}
-.music-card > .wave:nth-child(2) {
-    top: 10px;
-    animation: spin 4000ms infinite linear;
-}
-.music-card > .wave:nth-child(3) {
-    top: 10px;
-    animation: spin 5000ms infinite linear;
-}
-.music-card > .info {
+    animation: wave 1000ms infinite linear;
+  }
+  /* when stop */
+  .wave {
+    border-radius: 40%;
+    animation: wave 12s infinite linear;
+  }
+  
+  .playing .wave:nth-child(2) {
+    animation-duration: 1000ms;
+  }
+  /* when stop */
+  .wave:nth-child(2) {
+    animation-duration: 10s;
+  }
+  
+  .playing .wave:nth-child(3) {
+    animation-duration: 1000ms;
+  }
+  /* when stop */
+  .wave:nth-child(3) {
+    animation-duration: 10s;
+  }
+  
+  .info {
     position: absolute;
-    bottom: 25px;
-    margin-top: 10px;
+    bottom: 20px;
     left: 0;
     right: 0;
     text-align: center;
-}
-.music-card > .info > .title {
-    font-size: 1.3em;
+  }
+  
+  .title {
+    font-size: 1.0em;
+    margin-top: 20px;
     font-weight: 400;
- 
     color: #333;
     margin-bottom: 8px;
-}
-.music-card > .info > .artist {
-    
-    color: #cfcfcf;
-    font-size: 0.8em;
-    letter-spacing: 0.08em;
     text-transform: uppercase;
-}
+    font-family: 'Reem Kufi', sans-serif;
+  }
+  
+  .artist {
+    color: #808080;
+    font-size: 1.0em;
+    letter-spacing: 0.08em;
+    font-family: 'Reem Kufi', sans-serif;
+  }
+  .fa {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #555;
+  }
+  .fa-play {
+    display: none;
+  }
+
+  

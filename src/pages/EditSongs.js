@@ -1,12 +1,12 @@
 import { useState , useEffect } from "react"
 
 import {useSelector  , useDispatch } from 'react-redux'
-import { addSongs , getSongs , getSong , editSong} from "../features/songs/songSlice"
-import { useNavigate  , useParams } from "react-router-dom"
+import { addSongs , getSongs , getSong , editSong , editFetchedSong} from "../features/songs/songSlice"
+import { Navigate, useNavigate  , useParams } from "react-router-dom"
 import { current } from "@reduxjs/toolkit"
 
 const EditSong = () => {
-
+  const dispatch = useDispatch()
 
 
 
@@ -15,10 +15,11 @@ const EditSong = () => {
       dispatch(getSong(id))
     
 
-  } , [])
+  } , [dispatch])
     const {id} = useParams()
-    const dispatch = useDispatch()
+  
     const result = useSelector(state => state.song)
+
     const resultById = result.songs.filter(x => x.id === id)
 
     
@@ -48,13 +49,16 @@ const EditSong = () => {
         // var time = Date.now() 
      
         e.preventDefault()
-        dispatch(editSong({
+
+        
+        dispatch(editFetchedSong({
             id:id,
             artist:artist,
             title:title,
             img:poster, 
         }))
-      navigate('/')
+        navigate('/')
+      
         
     }
     return (

@@ -1,6 +1,6 @@
 import { useState } from "react"
 import {useSelector  , useDispatch} from 'react-redux'
-import { addSongs } from "../features/songs/songSlice"
+import { addSongs, createFetchedSong } from "../features/songs/songSlice"
 import { useNavigate } from "react-router-dom"
 
 const CreateSong = () => {
@@ -15,14 +15,22 @@ const CreateSong = () => {
    
     const handleSubmit = (e) => {
         var time = Date.now() 
+   
+        time = time.toString()
         console.log(time)
         e.preventDefault()
-        dispatch(addSongs({
-            id:time,
-            artist:artist,
-            title:title,
-            img:poster, 
-        }))
+        // dispatch(addSongs({
+        //     id:time,
+        //     artist:artist,
+        //     title:title,
+        //     img:poster, 
+        // }))
+        dispatch(createFetchedSong({
+              id:time,
+              artist:artist,
+              title:title,
+              img:poster, 
+          }))
       navigate('/')
         
     }
@@ -41,7 +49,7 @@ const CreateSong = () => {
           value={artist}
           onChange={(e) => setArtist(e.target.value)}
         />
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title">Title</label>
         <input 
           type="text" 
  
