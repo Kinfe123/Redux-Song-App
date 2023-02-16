@@ -25,14 +25,7 @@ function* workSongCreate(actions) {
         method: "POST",
      
         // Adding body or contents to send
-        body: JSON.stringify({
-            id: actions.payload.id,
-            artist: actions.payload.artist,
-            title: actions.payload.title,
-        
-           
-            img: actions.payload.img,
-        }),
+        body: JSON.stringify(actions.payload),
          
         // Adding headers to the request
         headers: {
