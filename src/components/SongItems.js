@@ -1,5 +1,6 @@
 import './songs.css'
 import {useDispatch } from 'react-redux'
+import { DELETE_SONG_BY_ID } from '../features/types'
 import { useNavigate } from 'react-router-dom'
 import { removeSong , deleteFetchedSong } from '../features/songs/songSlice'
 const SongItems = (props) => {
@@ -8,7 +9,7 @@ const SongItems = (props) => {
     const navigate = useNavigate()
     
     const handleRemove = () => {
-        dispatch(deleteFetchedSong(props.id))
+        dispatch({type:DELETE_SONG_BY_ID , payload:props.id})
         
 
     }
@@ -20,7 +21,7 @@ const SongItems = (props) => {
         <>
         <div class="music-card">
         <div class="image">
-            <img src={props.img}/>
+            <img src={props.img} height={374}/>
         </div>
         <div class="wave"></div>
         <div class="wave"></div>

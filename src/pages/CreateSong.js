@@ -1,6 +1,7 @@
 import { useState } from "react"
+import { CREATE_SONG } from "../features/types"
 import {useSelector  , useDispatch} from 'react-redux'
-import { addSongs, createFetchedSong } from "../features/songs/songSlice"
+import { addSong, createFetchedSong } from "../features/songs/songSlice"
 import { useNavigate } from "react-router-dom"
 
 const CreateSong = () => {
@@ -17,7 +18,7 @@ const CreateSong = () => {
         var time = Date.now() 
    
         time = time.toString()
-        console.log(time)
+        // console.log(time)
         e.preventDefault()
         // dispatch(addSongs({
         //     id:time,
@@ -25,12 +26,21 @@ const CreateSong = () => {
         //     title:title,
         //     img:poster, 
         // }))
-        dispatch(createFetchedSong({
-              id:time,
-              artist:artist,
-              title:title,
-              img:poster, 
-          }))
+        const payloadObject = {
+          id:time,
+          artist:artist,
+          title:title,
+          img:poster, 
+
+        }
+      dispatch({type:CREATE_SONG , payload:payloadObject})
+
+        // dispatch(addSong({
+        //       id:time,
+        //       artist:artist,
+        //       title:title,
+        //       img:poster, 
+        //   }))
       navigate('/')
         
     }

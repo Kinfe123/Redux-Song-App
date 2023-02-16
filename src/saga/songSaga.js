@@ -1,23 +1,27 @@
-import  { all , fork , put , takeEvery , call} from 'redux-saga/effects'
-import { getFetchedSuccessSong , editFetchedSong , editSong, createFetchedSong, deleteFetchedSong  } from '../features/songs/songSlice'
+import  { all , put , takeEvery , call, takeLatest} from 'redux-saga/effects'
+import { getFetchedSuccessSong , addSong , removeSong , editSong  } from '../features/songs/songSlice'
 
+import { CREATE_SONG , DELETE_SONG_BY_ID , UPDATE_SONG_BY_ID } from '../features/types'
 // this is for fetching songs 
+const baseURL = 'http://localhost:3002/songs/'
+
 function* workSongFetch() {
-   
-    const songs = yield call(()=>fetch('http://localhost:3002/songs'))
+
+    const songs = yield call(()=>fetch(baseURL))
+
     const jsonData = yield songs.json()
-    console.log(jsonData)
+
     yield put(getFetchedSuccessSong(jsonData))
 }
 
-export  function* songSaga() {
-    yield takeEvery('songs/getFetchedSong' , workSongFetch)
-}
+
 
 
 // this is for creating new song
 function* workSongCreate(actions) {
-    const songsForAdd = yield call(()=>fetch('http://localhost:3002/songs'  , {
+
+   
+      yield call(()=>fetch(baseURL , {
         method: "POST",
      
         // Adding body or contents to send
@@ -36,9 +40,9 @@ function* workSongCreate(actions) {
         }
       }
     ))
-    // const jsonData = yield songsForAdd.json()
-    // console.log(jsonData)
-    // yield put(createFetchedSong(jsonData))
+   
+    yield put(addSong(actions.payload))
+    
     
    
     
@@ -47,54 +51,48 @@ function* workSongCreate(actions) {
 
 
 
-export function* songSagaCreate() {
-    yield takeEvery('songs/createFetchedSong' , workSongCreate)
-}
+
 //this is for deleteing the songs
 function* workSongDelete(actions) {
 
-   console.log(actions)
-    const deleteSong = yield call(()=> fetch('http://localhost:3002/songs/' + actions.payload , {
-        method:"DELETE"
-    }) )
+   
+    yield call(() => fetch(baseURL + actions.payload , {
+        method:'DELETE'
+    }))
+    yield put(removeSong(actions.payload))
 
-    // yield put(deleteFetchedSong())
 
-    // yield put(deleteFetchedSong(id))
+  
 }
-export function* songSagaDelete() {
-    yield takeEvery('songs/deleteFetchedSong' , workSongDelete)
-}
+
 // this is for editing the song 
 function* workSongEdit(actions) {
     
-   
-    const songForEdit = yield call(()=>fetch('http://localhost:3002/songs/' + actions.payload.id , {
+    
+    yield call(() => fetch(baseURL+actions.payload.id  , {
         method: "PUT",
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         },
         // Adding body or contents to send
-        body: JSON.stringify({
-            id: actions.payload.id,
-            artist: actions.payload.artist,
-            title: actions.payload.title,
-        
-           
-            img: actions.payload.img,
-        }),
+        body: JSON.stringify(actions.payload),
          
-        // Adding headers to the request
+    
         
       }
     ))
 
-    
-    // const jsonData = yield songForEdit.json()
-    
-    // console.log(jsonData)
-    // yield put(editFetchedSong(jsonData))
+
+    yield put(editSong(actions.payload))
+
 }
-export function* songSagaEdit() {
-    yield takeEvery('songs/editFetchedSong' , workSongEdit)
+
+
+
+export function* songSaga() {
+    yield takeLatest(UPDATE_SONG_BY_ID , workSongEdit)
+    yield takeEvery(DELETE_SONG_BY_ID , workSongDelete)
+    yield takeEvery('songs/getFetchedSong' , workSongFetch)
+    yield takeEvery(CREATE_SONG , workSongCreate)
+
 }

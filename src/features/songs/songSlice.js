@@ -43,9 +43,13 @@ const songSlice = createSlice({
  
            const indexOf = current(state).songs.indexOf(result[0])
            state.songs[indexOf] = action.payload
-      
+           return state 
         
        
+        },
+        addSong: (state, action)=> {
+            state.songs.push(action.payload)
+            return state
         },
 
 
@@ -54,7 +58,7 @@ const songSlice = createSlice({
 
 
         // this is for saga and async part of the code 
-        getFetchedSong: (state) => {
+        getFetchedSong: (state , action) => {
             state.isLoading = true
             
         },
@@ -66,30 +70,8 @@ const songSlice = createSlice({
            
 
         },
-        getFetchedSongFailure: (state, action) => {
-            state.isLoading = false
-        },
-        createFetchedSong: (state , action) => {
-          
-             state.songs.push(action.payload);
-        },
-        editFetchedSong:(state , action ) => {
-            
-            // console.log('The one an dinlt : ' , action)
-            const idForEdit = action.payload.id
        
-            const result = current(state).songs.filter(s => s.id === idForEdit)
     
-            const indexOf = current(state).songs.indexOf(result[0])
-            state.songs[indexOf] = action.payload
-        
-            
-        },
-        deleteFetchedSong:(state,action) => {
-            // console.log('Actions: ' , action)
-            state.songs = state.songs.filter(song => song.id !== action.payload)
-
-        }
 
 
         
@@ -102,5 +84,5 @@ const songSlice = createSlice({
 
 
 
-export const {createFetchedSong , editFetchedSong , deleteFetchedSong ,   getSongs , addSongs , removeSong , getSong , editSong , getFetchedSong , getFetchedSuccessSong , getFetchedSongFailure} = songSlice.actions
+export const {  getSongs , addSong , removeSong , getSong , editSong , getFetchedSong , getFetchedSuccessSong , getFetchedSongFailure} = songSlice.actions
 export default songSlice.reducer

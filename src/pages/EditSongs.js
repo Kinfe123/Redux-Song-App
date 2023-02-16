@@ -1,9 +1,10 @@
 import { useState , useEffect } from "react"
 
 import {useSelector  , useDispatch } from 'react-redux'
-import { addSongs , getSongs , getSong , editSong , editFetchedSong} from "../features/songs/songSlice"
+import {  getSong } from "../features/songs/songSlice"
 import { Navigate, useNavigate  , useParams } from "react-router-dom"
 import { current } from "@reduxjs/toolkit"
+import { UPDATE_SONG_BY_ID } from "../features/types"
 
 const EditSong = () => {
   const dispatch = useDispatch()
@@ -33,30 +34,17 @@ const EditSong = () => {
     const navigate = useNavigate()
 
     
-//     useEffect(()=> {
-//         setEdit(dispatch(getSong(id)))
-    
-
-//     } , [])
-   
-//    console.log(edit)
-
-   
-    
-    
-    
     const handleSubmit = (e) => {
         // var time = Date.now() 
      
         e.preventDefault()
-
-        
-        dispatch(editFetchedSong({
-            id:id,
-            artist:artist,
-            title:title,
-            img:poster, 
-        }))
+        const payloadObject = {
+          id:id,
+          artist:artist,
+          title:title,
+          img:poster, 
+        }
+        dispatch({type: UPDATE_SONG_BY_ID , payload:payloadObject})
         navigate('/')
       
         
@@ -77,7 +65,7 @@ const EditSong = () => {
           value={artist}
           onChange={(e) => setArtist(e.target.value)}
         />
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="title">Title</label>
         <input 
           type="text" 
  
