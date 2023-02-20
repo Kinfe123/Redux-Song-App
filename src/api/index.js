@@ -5,7 +5,7 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3002'
 
 
-export const getSong = async  (id) =>  await axios.get('/songs')
+export const getSong = async  () =>  await axios.get('/songs')
 
 
 export const getSongById  = async (id) => axios.get(`/songs/${id}`)

@@ -1,15 +1,15 @@
 import  { all , put , takeEvery , call, takeLatest} from 'redux-saga/effects'
 import { getFetchedSuccessSong , addSong , removeSong , editSong  } from '../features/songs/songSlice'
-
+import { createSongById, deleteSongById, getSong, updateSongById } from '../api'
 import { CREATE_SONG , DELETE_SONG_BY_ID , UPDATE_SONG_BY_ID } from '../features/types'
 // this is for fetching songs 
 const baseURL = 'http://localhost:3002/songs/'
 
 function* workSongFetch() {
 
-    const songs = yield call(()=>fetch(baseURL))
-
-    const jsonData = yield songs.json()
+    const songs = yield call(getSong)
+    
+    const jsonData = yield songs.data
 
     yield put(getFetchedSuccessSong(jsonData))
 }
@@ -21,18 +21,7 @@ function* workSongFetch() {
 function* workSongCreate(actions) {
 
    
-      yield call(()=>fetch(baseURL , {
-        method: "POST",
-     
-        // Adding body or contents to send
-        body: JSON.stringify(actions.payload),
-         
-        // Adding headers to the request
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-      }
-    ))
+    yield call(createSongById , actions.payload)
    
     yield put(addSong(actions.payload))
     
@@ -49,9 +38,8 @@ function* workSongCreate(actions) {
 function* workSongDelete(actions) {
 
    
-    yield call(() => fetch(baseURL + actions.payload , {
-        method:'DELETE'
-    }))
+    
+    yield call(deleteSongById , actions.payload)
     yield put(removeSong(actions.payload))
 
 
@@ -62,19 +50,8 @@ function* workSongDelete(actions) {
 function* workSongEdit(actions) {
     
     
-    yield call(() => fetch(baseURL+actions.payload.id  , {
-        method: "PUT",
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        },
-        // Adding body or contents to send
-        body: JSON.stringify(actions.payload),
-         
-    
-        
-      }
-    ))
 
+    yield call(updateSongById , actions.payload)
 
     yield put(editSong(actions.payload))
 
@@ -84,7 +61,7 @@ function* workSongEdit(actions) {
 
 export function* songSaga() {
     yield takeLatest(UPDATE_SONG_BY_ID , workSongEdit)
-    yield takeEvery(DELETE_SONG_BY_ID , workSongDelete)
+    yield takeLatest(DELETE_SONG_BY_ID , workSongDelete)
     yield takeEvery('songs/getFetchedSong' , workSongFetch)
     yield takeEvery(CREATE_SONG , workSongCreate)
 
