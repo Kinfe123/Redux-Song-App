@@ -309,3 +309,24 @@ nav svg {
   font-family: 'Prompt', sans-serif;
 
 }
+.artists-desc {
+  margin-top: 20px;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.whole-stuff {
+  margin: 20px;
+}
+.spanned {
+  color: #b01de8;
+}
+.img-with-text {
+  display: flex;
+}
+.img-with-text img {
+  width: 42%;
+  height: 42%;
+}

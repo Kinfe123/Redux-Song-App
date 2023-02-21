@@ -11,6 +11,7 @@ import EditSong from './pages/EditSongs';
 import createSagaMiddleware from '@redux-saga/core';
 import { HashLoader } from 'react-spinners';
 import { useSelector } from 'react-redux';
+import SongDetail from './pages/SongDetail';
 
 
 
@@ -33,6 +34,7 @@ function App() {
         {/* <Route path='/*' element={<NotFound />}/> */}
         <Route path="/create" element={<CreateSong />} />
         <Route path="/edit/:id" element={<EditSong />} />
+        <Route path="/songs/:id" element={<SongDetail />} />
         {/* <Route path="/:id" element={<Update />} /> */}
         {/* <Route path='/about' element={<About />} /> */}
  

@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import songItems from "../../songItems";
 import {current} from '@reduxjs/toolkit'
+import { getSongById } from "../../api";
 
 const initialState = {
     songs:[],
     isLoading: false,
     quantity:songItems.length,
+    isError:'not-occurred',
+    indSong:[],
     editSong:[]
 }
 const songSlice = createSlice({
@@ -34,6 +37,21 @@ const songSlice = createSlice({
 
             
 
+        },
+        getSongByIds: (state , action)=>{
+            state.isLoading = true
+            // console.log(action.payload.id)
+           
+            state.indSong = action.payload
+            state.isError = 'not-occurred'
+            
+            
+            
+
+        },
+        getErrorFlag:(state , action) => {
+            
+            state.isError = action.payload
         },
         editSong: (state , action)=> {
            const idForEdit = action.payload.id
@@ -70,6 +88,7 @@ const songSlice = createSlice({
            
 
         },
+
        
     
 
@@ -79,10 +98,26 @@ const songSlice = createSlice({
 
         
        
-    }
+    },
+    // extraReducers: {
+    //     [fetchUserById.pending]:(state , payload)=> {
+    //         console.log('This goes to pending')
+
+          
+
+
+    //     },
+    //     [fetchUserById.fulfilled]: {
+
+    //     },
+    //     [fetchUserById.rejected]: {
+
+    //     },
+
+    // }
 })
 
 
 
-export const {  getSongs , addSong , removeSong , getSong , editSong , getFetchedSong , getFetchedSuccessSong , getFetchedSongFailure} = songSlice.actions
+export const {getErrorFlag,getSongByIds , getSongs , addSong , removeSong , getSong , editSong , getFetchedSong , getFetchedSuccessSong , getFetchedSongFailure} = songSlice.actions
 export default songSlice.reducer

@@ -1,7 +1,7 @@
 import './songs.css'
 import {useDispatch } from 'react-redux'
 import { DELETE_SONG_BY_ID } from '../features/types'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { removeSong , deleteFetchedSong } from '../features/songs/songSlice'
 const SongItems = (props) => {
 
@@ -17,6 +17,10 @@ const SongItems = (props) => {
         navigate('/edit/' + props.id)
 
     }
+    const handleClick = () => {
+        navigate('/songs/' + props.id)
+    }
+    const url = '/songs/'+props.id
     return (
         <>
         <div class="music-card">
@@ -26,6 +30,7 @@ const SongItems = (props) => {
         <div class="wave"></div>
         <div class="wave"></div>
         <div class="wave"></div>
+        <a href={url}>
         <div class="info">
             <h2 class="title">♫  {props.title}</h2>
             <author class="artist">🎸 {props.artist}</author>
@@ -34,6 +39,7 @@ const SongItems = (props) => {
                 <button className='editBtnRev' onClick={handleRemove}>Remove</button>
             </div>
         </div>
+        </a>
         </div>
 
         
