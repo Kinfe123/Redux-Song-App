@@ -12,9 +12,13 @@ git clone https://github.com/Kinfe123/Redux-Song-App
 ```
 - Step 2:
 ```sh
-npm install 
+cd Redux-Song-App
 ```
 - Step 3:
+```sh
+npm install 
+```
+- Step 4:
     -  start the json server by hitting the command below
 ```sh
 npx json-server --watch db.json --port 3002
